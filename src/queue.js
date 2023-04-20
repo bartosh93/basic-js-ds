@@ -15,20 +15,41 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 class Queue {
   constructor() {
-    this.collection = [];
+    
+    this.storage = {};
   }
   
   getUnderlyingList() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    return this.storage
   }
 
   enqueue(value) {
-    this.collection.push(value)
+    if (!this.storage.value) {
+      this.storage.value = value
+      this.storage.next = null
+  } else {
+    getValue(this.storage)
+  }
+  function getValue(obj) {
+      getProp(obj)
+      function getProp(o) {
+             if(o.next===null) {
+              o.next = {};
+              o.next.value = value;
+              o.next.next = null;
+             }  else {
+                  getProp(o['next'])
+                }
+       }
+   }
+    
   }
 
   dequeue() {
-    return this.collection.shift()
+    let deletedData = this.storage['value'];
+    this.storage = this.storage['next'];
+    
+    return deletedData;
   }
 }
 
